@@ -34,10 +34,10 @@ jobs:
         run: uv pip install setuptools wheel twine pytest
 
       - name: Build package
-        run: uv python setup.py sdist bdist_wheel
+        run: python setup.py sdist bdist_wheel
 
       - name: Test package
-        run: uv pytest
+        run: pytest
 
   deploy:
     if: github.ref == 'refs/heads/main'
@@ -65,7 +65,7 @@ jobs:
         run: uv pip install setuptools wheel twine
 
       - name: Build package
-        run: uv python setup.py sdist bdist_wheel
+        run: python setup.py sdist bdist_wheel
 
       - name: Publish to PyPI
         env:
