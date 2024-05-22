@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="yspscda",
-    version="0.0.1",
+    version="0.0.2",
     author="Priyansh Srivastava",
     author_email="spriyansh29@gmail.com",
     description="Yet Another Package for Single-Cell Data Analysis",
