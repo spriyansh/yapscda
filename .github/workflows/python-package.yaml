@@ -22,18 +22,19 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install dependencies
+      - name: Install pip and UV
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools wheel twine
+          pip install uv
+
+      - name: Install dependencies with UV
+        run: uv pip install setuptools wheel twine pytest
 
       - name: Build package
         run: python setup.py sdist bdist_wheel
 
       - name: Test package
-        run: |
-          pip install .
-          pytest
+        run: uv pip install . && uv pytest
 
   deploy:
     if: github.ref == 'refs/heads/main'
@@ -49,10 +50,13 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install dependencies
+      - name: Install pip and UV
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools wheel twine
+          pip install uv
+
+      - name: Install dependencies with UV
+        run: uv pip install setuptools wheel twine
 
       - name: Build package
         run: python setup.py sdist bdist_wheel
@@ -61,4 +65,4 @@ jobs:
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: python -m twine upload dist/*
+        run: uv twine upload dist/*
