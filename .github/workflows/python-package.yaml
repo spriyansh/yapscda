@@ -30,7 +30,7 @@ jobs:
       - name: Create and activate virtual environment
         run: |
           uv venv .venv
-          echo 'source .venv/bin/activate' >> $GITHUB_ENV
+          echo ".venv/bin/activate" >> $GITHUB_ENV
 
       - name: Install dependencies with UV
         run: |
@@ -69,7 +69,7 @@ jobs:
       - name: Create and activate virtual environment
         run: |
           uv venv .venv
-          echo 'source .venv/bin/activate' >> $GITHUB_ENV
+          echo ".venv/bin/activate" >> $GITHUB_ENV
 
       - name: Install dependencies with UV
         run: |
