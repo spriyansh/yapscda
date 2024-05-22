@@ -27,14 +27,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install uv
 
+      - name: Create and activate virtual environment
+        run: uv venv .venv && source .venv/bin/activate
+
       - name: Install dependencies with UV
         run: uv pip install setuptools wheel twine pytest
 
       - name: Build package
-        run: python setup.py sdist bdist_wheel
+        run: uv python setup.py sdist bdist_wheel
 
       - name: Test package
-        run: uv pip install . && uv pytest
+        run: uv pytest
 
   deploy:
     if: github.ref == 'refs/heads/main'
@@ -55,11 +58,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install uv
 
+      - name: Create and activate virtual environment
+        run: uv venv .venv && source .venv/bin/activate
+
       - name: Install dependencies with UV
         run: uv pip install setuptools wheel twine
 
       - name: Build package
-        run: python setup.py sdist bdist_wheel
+        run: uv python setup.py sdist bdist_wheel
 
       - name: Publish to PyPI
         env:
