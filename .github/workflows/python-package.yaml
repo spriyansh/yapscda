@@ -28,16 +28,18 @@ jobs:
           pip install uv
 
       - name: Create and activate virtual environment
-        run: uv venv .venv && source .venv/bin/activate
+        run: |
+          uv venv .venv
+          . .venv/bin/activate
 
       - name: Install dependencies with UV
-        run: uv pip install setuptools wheel twine pytest
+        run: .venv/bin/uv pip install setuptools wheel twine pytest
 
       - name: Build package
-        run: python setup.py sdist bdist_wheel
+        run: .venv/bin/python setup.py sdist bdist_wheel
 
       - name: Test package
-        run: pytest
+        run: .venv/bin/pytest
 
   deploy:
     if: github.ref == 'refs/heads/main'
@@ -59,16 +61,18 @@ jobs:
           pip install uv
 
       - name: Create and activate virtual environment
-        run: uv venv .venv && source .venv/bin/activate
+        run: |
+          uv venv .venv
+          . .venv/bin/activate
 
       - name: Install dependencies with UV
-        run: uv pip install setuptools wheel twine
+        run: .venv/bin/uv pip install setuptools wheel twine
 
       - name: Build package
-        run: python setup.py sdist bdist_wheel
+        run: .venv/bin/python setup.py sdist bdist_wheel
 
       - name: Publish to PyPI
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: uv twine upload dist/*
+        run: .venv/bin/uv twine upload dist/*
